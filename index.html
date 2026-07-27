@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>ハンディ</title>
+  <style>
+    :root{
+      --bg:#0d0d10;
+      --panel:#18181d;
+      --panel2:#202028;
+      --line:#34343d;
+      --text:#f5f5f7;
+      --muted:#a9a9b6;
+      --gold:#e3b84d;
+      --green:#1db954;
+      --gray:#777;
+      --red:#d95a5a;
+      --blue:#7aa7ff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-tap-highlight-color: transparent;
+    }
+    button,input,select{font:inherit}
+    .app{
+      max-width:720px;
+      margin:0 auto;
+      min-height:100vh;
+      padding:16px 14px 24px;
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 4px 16px;
+      position:sticky;
+      top:0;
+      background:linear-gradient(to bottom, rgba(13,13,16,.98), rgba(13,13,16,.92));
+      backdrop-filter: blur(8px);
+      z-index:5;
+    }
+    .title{
+      font-size:24px;
+      font-weight:900;
+      letter-spacing:.03em;
+      color:var(--gold);
+    }
+    .top-actions{display:flex;gap:8px;align-items:center}
+    .icon-btn,.primary,.secondary{
+      border:0;
+      border-radius:14px;
+      padding:12px 14px;
+      font-weight:800;
+    }
+    .icon-btn{
+      background:var(--panel2);
+      color:var(--text);
+    }
+    .primary{
+      background:var(--gold);
+      color:#111;
+    }
+    .secondary{
+      background:#2a2a33;
+      color:var(--text);
+    }
+
+    .home-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px;
+      margin-top:6px;
+    }
+    .table-card{
+      background:linear-gradient(180deg, #1b1b22 0%, #17171d 100%);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px 14px;
+      min-height:118px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      text-align:left;
+    }
+    .table-card.open{border-color:rgba(29,185,84,.55);box-shadow:0 0 0 1px rgba(29,185,84,.08) inset}
+    .table-card.paid{opacity:.68;border-color:#555}
+    .table-name{font-size:22px;font-weight:900}
+    .table-meta{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.45}
+    .status{
+      margin-top:10px;
+      display:inline-flex;
+      width:max-content;
+      align-items:center;
+      gap:6px;
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+    }
+    .status.open{background:rgba(29,185,84,.15);color:#7af0a0}
+    .status.paid{background:rgba(120,120,120,.16);color:#c7c7cf}
+    .amount{
+      font-size:22px;
+      font-weight:900;
+      text-align:right;
+      margin-top:10px;
+    }
+
+    .section{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px;
+      margin-top:12px;
+    }
+    .section h2{
+      margin:0 0 10px;
+      font-size:18px;
+      font-weight:900;
+    }
+    .subtle{color:var(--muted);font-size:13px;line-height:1.5}
+
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .row:last-child{border-bottom:0}
+    .row-label{font-weight:800}
+    .row-small{font-size:12px;color:var(--muted);margin-top:4px}
+    .qty{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-shrink:0;
+    }
+    .qty button{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      border:0;
+      background:#2b2b35;
+      color:var(--text);
+      font-size:20px;
+      font-weight:900;
+    }
+    .qty span{
+      min-width:28px;
+      text-align:center;
+      font-size:18px;
+      font-weight:900;
+    }
+    .field{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .field:last-child{border-bottom:0}
+    input[type="number"], select{
+      background:#262631;
+      color:var(--text);
+      border:1px solid #3e3e49;
+      border-radius:12px;
+      padding:12px 12px;
+      min-width:120px;
+      text-align:right;
+      outline:none;
+    }
+    input[type="checkbox"]{
+      transform:scale(1.35);
+      accent-color:var(--gold);
+      width:18px;height:18px;
+    }
+
+    .bottle-name{font-weight:900}
+    .bottle-price{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.45}
+    .calc{
+      display:grid;
+      gap:10px;
+    }
+    .calc-line{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:8px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .calc-line:last-child{border-bottom:0}
+    .calc-total{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:10px;
+      padding-top:8px;
+    }
+    .calc-total .label{font-weight:900;font-size:16px}
+    .calc-total .value{
+      font-size:34px;
+      font-weight:1000;
+      color:var(--gold);
+      line-height:1;
+    }
+
+    .buttons{
+      display:flex;
+      gap:10px;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+    .buttons button{
+      flex:1 1 140px;
+      padding:14px 12px;
+      border-radius:14px;
+      border:0;
+      font-weight:900;
+      font-size:16px;
+    }
+
+    .muted-link{
+      color:var(--blue);
+      background:none;
+      border:0;
+      padding:0;
+      font-weight:800;
+    }
+
+    .hidden{display:none !important}
+    .small-note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
+    .tag{
+      display:inline-block;
+      margin-left:8px;
+      padding:4px 8px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:900;
+      background:rgba(255,255,255,.08);
+      color:#ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="title" id="appTitle">ハンディ</div>
+      <div class="top-actions" id="topActions">
+        <button class="icon-btn hidden" id="backBtn" type="button">← 戻る</button>
+        <button class="icon-btn" id="shareBtn" type="button" onclick="shareTable()">共有</button>
+      </div>
+    </div>
+
+    <div id="homeView">
+      <div class="section">
+        <h2>卓一覧</h2>
+        <div class="subtle">V1〜V3 / SV1〜SV3 をタップして伝票を開きます。</div>
+      </div>
+      <div class="home-grid" id="tableGrid"></div>
+    </div>
+
+    <div id="orderView" class="hidden">
+      <div class="section">
+        <h2 id="tableName">V1</h2>
+        <div class="subtle">
+          伝票入力画面
+          <span id="paidTag" class="tag hidden">会計済み</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>人数</h2>
+        <div class="row">
+          <div>
+            <div class="row-label">ゲスト数</div>
+            <div class="row-small">TC計算に使用</div>
+          </div>
+          <div class="qty">
+            <button type="button" onclick="changeGuests(-1)">−</button>
+            <span id="guestCount">1</span>
+            <button type="button" onclick="changeGuests(1)">＋</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>ボトル</h2>
+        <div class="subtle">価格は税抜。TAX10%を自動加算します。</div>
+        <div id="bottleList"></div>
+      </div>
+
+      <div class="section">
+        <h2>TC / SC</h2>
+        <div class="field">
+          <div>
+            <div class="row-label">TC を使う</div>
+            <div class="row-small">ON / OFF を切替</div>
+          </div>
+          <input id="tcOn" type="checkbox" onchange="recalc()" />
+        </div>
+        <div class="field">
+          <div>
+            <div class="row-label">TC 金額（1名）</div>
+            <div class="row-small">自由入力できます</div>
+          </div>
+          <input id="tcPrice" type="number" min="0" step="1" value="3000" oninput="recalc()" />
+        </div>
+        <div class="field">
+          <div>
+            <div class="row-label">SC を使う</div>
+            <div class="row-small">ON / OFF を切替</div>
+          </div>
+          <input id="scOn" type="checkbox" onchange="recalc()" />
+        </div>
+        <div class="field">
+          <div>
+            <div class="row-label">SC 率</div>
+            <div class="row-small">0% / 10% / 20%</div>
+          </div>
+          <select id="scRate" onchange="recalc()">
+            <option value="0">0%</option>
+            <option value="10">10%</option>
+            <option value="20" selected>20%</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>セット</h2>
+        <div class="subtle">A〜E は各 50,000円。SC10%・TAX10%で計算します。</div>
+        <div id="setList"></div>
+      </div>
+
+      <div class="section">
+        <h2>端数処理</h2>
+        <div class="field">
+          <div>
+            <div class="row-label">切り捨て</div>
+            <div class="row-small">なし / 10円 / 100円 / 1,000円</div>
+          </div>
+          <select id="rounding" onchange="recalc()">
+            <option value="0">なし</option>
+            <option value="10">10円未満切り捨て</option>
+            <option value="100" selected>100円未満切り捨て</option>
+            <option value="1000">1,000円未満切り捨て</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section calc">
+        <h2>計算結果</h2>
+        <div class="calc-line"><span>ボトル税抜</span><strong id="bottleBase">¥0</strong></div>
+        <div class="calc-line"><span>ボトル TAX 10%</span><strong id="bottleTax">¥0</strong></div>
+        <div class="calc-line"><span>ボトル税込</span><strong id="bottleWithTax">¥0</strong></div>
+        <div class="calc-line"><span>TC</span><strong id="tcTotal">¥0</strong></div>
+        <div class="calc-line"><span>SC</span><strong id="scTotal">¥0</strong></div>
+        <div class="calc-line"><span>セット合計</span><strong id="setTotal">¥0</strong></div>
+        <div class="calc-line"><span>端数処理</span><strong id="roundInfo">¥0</strong></div>
+        <div class="calc-total">
+          <div class="label">合計</div>
+          <div class="value" id="grandTotal">¥0</div>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button class="primary" type="button" onclick="saveOrder()">保存</button>
+        <button class="secondary" type="button" onclick="togglePaid()">会計済みにする</button>
+        <button class="secondary" type="button" onclick="resetOrder()">リセット</button>
+      </div>
+      <div class="small-note">保存した内容は端末内に残ります。共有ボタンでスタッフへそのまま送れる形式にできます。</div>
+    </div>
+  </div>
+
+<script>
+const TABLES = ["V1","V2","V3","SV1","SV2","SV3"];
+const BOTTLES = [
+  { name:"マム グランコルドン", price:22000 },
+  { name:"マム グランコルドン ロゼ", price:25000 },
+  { name:"マム アイス エクストラ", price:26000 },
+  { name:"ペリエ ジュエ グラン ブリュット", price:24000 },
+  { name:"ペリエ ジュエ ベル エポック", price:75000 },
+  { name:"ペリエ ジュエ ベル エポック ロゼ", price:135000 },
+  { name:"アルマンド ブリニャック ゴールド", price:150000 },
+];
+const SET_NAMES = ["A","B","C","D","E"];
+const SET_PRICE = 50000;
+
+const defaultOrder = () => ({
+  guests: 1,
+  bottles: Array(BOTTLES.length).fill(0),
+  sets: Object.fromEntries(SET_NAMES.map(n => [n, 0])),
+  tcOn: true,
+  tcPrice: 3000,
+  scOn: true,
+  scRate: 20,
+  rounding: 100,
+  paid: false
+});
+
+const STORAGE_KEY = "jumanji_handy_orders_v1";
+
+let state = {
+  currentTable: null,
+  orders: {}
+};
+
+function yen(value){
+  return "¥" + Math.round(Number(value || 0)).toLocaleString("ja-JP");
+}
+
+function loadState(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    state.orders = saved.orders || {};
+  }catch(e){
+    state.orders = {};
+  }
+  TABLES.forEach(t => {
+    if(!state.orders[t]) state.orders[t] = defaultOrder();
+  });
+}
+
+function saveState(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ orders: state.orders }));
+}
+
+function currentOrder(){
+  if(!state.currentTable) return null;
+  if(!state.orders[state.currentTable]) state.orders[state.currentTable] = defaultOrder();
+  return state.orders[state.currentTable];
+}
+
+function showHome(){
+  document.getElementById("homeView").classList.remove("hidden");
+  document.getElementById("orderView").classList.add("hidden");
+  document.getElementById("backBtn").classList.add("hidden");
+  document.getElementById("shareBtn").classList.add("hidden");
+  document.getElementById("appTitle").textContent = "ハンディ";
+  renderHome();
+}
+
+function openTable(table){
+  state.currentTable = table;
+  document.getElementById("homeView").classList.add("hidden");
+  document.getElementById("orderView").classList.remove("hidden");
+  document.getElementById("backBtn").classList.remove("hidden");
+  document.getElementById("shareBtn").classList.remove("hidden");
+  document.getElementById("appTitle").textContent = "ハンディ";
+  renderOrder();
+}
+
+function renderHome(){
+  const grid = document.getElementById("tableGrid");
+  grid.innerHTML = "";
+  TABLES.forEach(t => {
+    const order = state.orders[t] || defaultOrder();
+    const calc = calculate(order);
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "table-card " + (order.paid ? "paid" : "open");
+    card.innerHTML = `
+      <div>
+        <div class="table-name">${t}</div>
+        <div class="table-meta">
+          人数 ${order.guests}名<br>
+          ${order.paid ? "会計済み" : "開放中"}
+        </div>
+      </div>
+      <div>
+        <div class="status ${order.paid ? "paid" : "open"}">${order.paid ? "会計済み" : "Open"}</div>
+        <div class="amount">${yen(calc.grand)}</div>
+      </div>
+    `;
+    card.onclick = () => openTable(t);
+    grid.appendChild(card);
+  });
+}
+
+function renderOrder(){
+  const order = currentOrder();
+  document.getElementById("tableName").textContent = state.currentTable;
+  document.getElementById("guestCount").textContent = order.guests;
+  document.getElementById("tcOn").checked = !!order.tcOn;
+  document.getElementById("tcPrice").value = order.tcPrice;
+  document.getElementById("scOn").checked = !!order.scOn;
+  document.getElementById("scRate").value = order.scRate;
+  document.getElementById("rounding").value = order.rounding;
+  document.getElementById("paidTag").classList.toggle("hidden", !order.paid);
+
+  const bottleList = document.getElementById("bottleList");
+  bottleList.innerHTML = "";
+  BOTTLES.forEach((b, i) => {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `
+      <div>
+        <div class="bottle-name">${b.name}</div>
+        <div class="bottle-price">
+          ${yen(b.price)} + TAX10% = ${yen(b.price * 1.10)}
+        </div>
+      </div>
+      <div class="qty">
+        <button type="button" onclick="changeBottle(${i}, -1)">−</button>
+        <span id="bq-${i}">${order.bottles[i] || 0}</span>
+        <button type="button" onclick="changeBottle(${i}, 1)">＋</button>
+      </div>
+    `;
+    bottleList.appendChild(row);
+  });
+
+  const setList = document.getElementById("setList");
+  setList.innerHTML = "";
+  SET_NAMES.forEach(name => {
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `
+      <div>
+        <div class="bottle-name">Set ${name}</div>
+        <div class="bottle-price">${yen(SET_PRICE)} + SC10% + TAX10%</div>
+      </div>
+      <div class="qty">
+        <button type="button" onclick="changeSet('${name}', -1)">−</button>
+        <span id="sq-${name}">${order.sets[name] || 0}</span>
+        <button type="button" onclick="changeSet('${name}', 1)">＋</button>
+      </div>
+    `;
+    setList.appendChild(row);
+  });
+
+  recalc();
+}
+
+function changeGuests(delta){
+  const order = currentOrder();
+  order.guests = Math.max(1, (order.guests || 1) + delta);
+  document.getElementById("guestCount").textContent = order.guests;
+  recalc();
+  saveState();
+  renderHome();
+}
+
+function changeBottle(index, delta){
+  const order = currentOrder();
+  order.bottles[index] = Math.max(0, (order.bottles[index] || 0) + delta);
+  document.getElementById(`bq-${index}`).textContent = order.bottles[index];
+  recalc();
+  saveState();
+  renderHome();
+}
+
+function changeSet(name, delta){
+  const order = currentOrder();
+  order.sets[name] = Math.max(0, (order.sets[name] || 0) + delta);
+  document.getElementById(`sq-${name}`).textContent = order.sets[name];
+  recalc();
+  saveState();
+  renderHome();
+}
+
+function calculate(order){
+  let bottleBase = 0;
+  order.bottles.forEach((qty, i) => {
+    bottleBase += (BOTTLES[i].price * (qty || 0));
+  });
+
+  const bottleTax = bottleBase * 0.10;
+  const bottleWithTax = bottleBase + bottleTax;
+
+  const tc = order.tcOn ? (Number(order.tcPrice || 0) * Number(order.guests || 1)) : 0;
+  const scRate = order.scOn ? (Number(order.scRate || 0) / 100) : 0;
+  const sc = (bottleWithTax + tc) * scRate;
+
+  const setBase = SET_NAMES.reduce((sum, n) => sum + (Number(order.sets[n] || 0) * SET_PRICE), 0);
+  const setTotal = setBase * 1.10 * 1.10; // SC10% + TAX10%
+
+  let grand = bottleWithTax + tc + sc + setTotal;
+
+  const roundUnit = Number(order.rounding || 0);
+  let roundedGrand = grand;
+  let roundDown = 0;
+  if (roundUnit > 0){
+    roundedGrand = Math.floor(grand / roundUnit) * roundUnit;
+    roundDown = grand - roundedGrand;
+  }
+
+  return {
+    bottleBase,
+    bottleTax,
+    bottleWithTax,
+    tc,
+    sc,
+    setBase,
+    setTotal,
+    grand: roundedGrand,
+    roundDown
+  };
+}
+
+function recalc(){
+  const order = currentOrder();
+  if(!order) return;
+
+  order.tcOn = document.getElementById("tcOn").checked;
+  order.tcPrice = Number(document.getElementById("tcPrice").value || 0);
+  order.scOn = document.getElementById("scOn").checked;
+  order.scRate = Number(document.getElementById("scRate").value || 0);
+  order.rounding = Number(document.getElementById("rounding").value || 0);
+
+  const c = calculate(order);
+  document.getElementById("bottleBase").textContent = yen(c.bottleBase);
+  document.getElementById("bottleTax").textContent = yen(c.bottleTax);
+  document.getElementById("bottleWithTax").textContent = yen(c.bottleWithTax);
+  document.getElementById("tcTotal").textContent = yen(c.tc);
+  document.getElementById("scTotal").textContent = yen(c.sc);
+  document.getElementById("setTotal").textContent = yen(c.setTotal);
+  document.getElementById("roundInfo").textContent = c.roundDown > 0 ? `-${yen(c.roundDown)}` : "¥0";
+  document.getElementById("grandTotal").textContent = yen(c.grand);
+
+  saveState();
+  renderHome();
+}
+
+function saveOrder(){
+  saveState();
+  alert("保存しました");
+  renderHome();
+}
+
+function togglePaid(){
+  const order = currentOrder();
+  order.paid = !order.paid;
+  document.getElementById("paidTag").classList.toggle("hidden", !order.paid);
+  saveState();
+  renderHome();
+  alert(order.paid ? "会計済みにしました" : "会計済みを解除しました");
+}
+
+function resetOrder(){
+  if(!confirm("この卓の内容をリセットしますか？")) return;
+  state.orders[state.currentTable] = defaultOrder();
+  renderOrder();
+  saveState();
+  renderHome();
+}
+
+async function shareTable(){
+  const order = currentOrder();
+  if(!order) return;
+
+  const c = calculate(order);
+  const lines = [];
+  lines.push(`【${state.currentTable}】`);
+  lines.push(`人数：${order.guests}名`);
+  lines.push("");
+
+  const bottleLines = [];
+  order.bottles.forEach((qty, i) => {
+    if(qty > 0){
+      bottleLines.push(`${BOTTLES[i].name} ×${qty}`);
+    }
+  });
+  if(bottleLines.length) {
+    lines.push("ボトル");
+    lines.push(...bottleLines);
+    lines.push("");
+  }
+
+  const setLines = [];
+  SET_NAMES.forEach(n => {
+    if((order.sets[n] || 0) > 0){
+      setLines.push(`Set ${n} ×${order.sets[n]}`);
+    }
+  });
+  if(setLines.length) {
+    lines.push("セット");
+    lines.push(...setLines);
+    lines.push("");
+  }
+
+  lines.push(`TC：${yen(c.tc)}`);
+  lines.push(`SC：${yen(c.sc)}`);
+  lines.push(`合計：${yen(c.grand)}`);
+
+  const text = lines.join("\n");
+
+  try{
+    if(navigator.share){
+      await navigator.share({ title: `ハンディ ${state.currentTable}`, text });
+    }else if(navigator.clipboard){
+      await navigator.clipboard.writeText(text);
+      alert("共有文をコピーしました");
+    }else{
+      prompt("コピーしてください", text);
+    }
+  }catch(e){
+    try{
+      await navigator.clipboard.writeText(text);
+      alert("共有文をコピーしました");
+    }catch(err){
+      prompt("コピーしてください", text);
+    }
+  }
+}
+
+document.getElementById("backBtn").onclick = showHome;
+
+loadState();
+showHome();
+</script>
+</body>
+</html>
