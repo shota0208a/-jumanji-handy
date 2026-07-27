@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>JUMANJI HANDY</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0d0d0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif}
+header{padding:18px;text-align:center;font-size:21px;font-weight:800;background:#161619;color:#e8bd55}
+main{max-width:600px;margin:auto;padding:16px}
+h2{margin:8px 0 14px}
+.card{background:#19191d;border:1px solid #333;border-radius:14px;padding:15px;margin-bottom:12px}
+.tables{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.table{background:#1d1d21;border:1px solid #555;border-radius:15px;padding:25px 10px;text-align:center;font-size:25px;font-weight:800}
+.table small{display:block;color:#aaa;font-size:13px;margin-top:8px}
+button{border:0;border-radius:10px;padding:12px;font-size:16px;font-weight:700}
+.gold{background:#e5b94f;color:#111;width:100%}
+.back{background:#333;color:white;margin-bottom:14px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{background:#333;color:white;width:42px;height:42px}
+input{background:#25252a;color:white;border:1px solid #555;border-radius:9px;padding:11px;font-size:18px;width:110px}
+select{background:#25252a;color:white;border:1px solid #555;border-radius:9px;padding:11px;font-size:16px}
+.switch{width:auto;transform:scale(1.4)}
+.price{color:#bbb;font-size:13px}
+.total{font-size:34px;font-weight:900;color:#e8bd55;text-align:right}
+.line{border-top:1px solid #444;padding-top:10px}
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+<header>JUMANJI HANDY</header>
+<main>
+
+<div id="home">
+<h2>卓一覧</h2>
+<div class="tables" id="tables"></div>
+</div>
+
+<div id="order" class="hidden">
+<button class="back" onclick="goHome()">← 卓一覧</button>
+<h2 id="tableTitle"></h2>
+
+<div class="card">
+<div class="row">
+<b>人数</b>
+<div class="qty">
+<button onclick="changeGuests(-1)">−</button>
+<span id="guests">1</span>
+<button onclick="changeGuests(1)">＋</button>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2>🍾 ボトル</h2>
+<div id="bottles"></div>
+</div>
+
+<div class="card">
+<div class="row">
+<b>TC</b>
+<input class="switch" id="tcOn" type="checkbox" checked onchange="calc()">
+</div>
+<div class="row">
+<span>TC金額（1名）</span>
+<input id="tcPrice" type="number" value="3000" oninput="calc()">
+</div>
+
+<div class="row">
+<b>SC</b>
+<input class="switch" id="scOn" type="checkbox" checked onchange="calc()">
+</div>
+<div class="row">
+<span>SC率</span>
+<select id="scRate" onchange="calc()">
+<option value="0">0%</option>
+<option value="10">10%</option>
+<option value="20" selected>20%</option>
+</select>
+</div>
+</div>
+
+<div class="card">
+<h2>🎉 セット</h2>
+<div class="row">
+<span>SET A〜E<br><span class="price">1セット ¥50,000</span></span>
+<div class="qty">
+<button onclick="changeSet(-1)">−</button>
+<span id="setQty">0</span>
+<button onclick="changeSet(1)">＋</button>
+</div>
+</div>
+<div class="price">セット：SC10% / TAX10% / TCなし</div>
+</div>
+
+<div class="card">
+<div class="row">
+<b>端数処理</b>
+<select id="rounding" onchange="calc()">
+<option value="0">なし</option>
+<option value="100">100円未満切り捨て</option>
+</select>
+</div>
+</div>
+
+<div class="card">
+<div class="row"><span>ボトル税抜</span><span id="bottleBase">¥0</span></div>
+<div class="row"><span>ボトル TAX 10%</span><span id="bottleTax">¥0</span></div>
+<div class="row"><span>TC</span><span id="tcTotal">¥0</span></div>
+<div class="row"><span>SC</span><span id="scTotal">¥0</span></div>
+<div class="row"><span>セット</span><span id="setTotal">¥0</span></div>
+<div class="row line"><b>合計</b><span class="total" id="grandTotal">¥0</span></div>
+</div>
+
+<button class="gold" onclick="save()">保存する</button>
+
+</div>
+</main>
+
+<script>
+const TABLES=["V1","V2","V3","SV1","SV2","SV3"];
+
+const BOTTLES=[
+["マム グランコルドン",22000],
+["マム グランコルドン ロゼ",25000],
+["マム アイス エクストラ",26000],
+["ペリエ ジュエ グラン ブリュット",24000],
+["ベルエポック",75000],
+["ベルエポック ロゼ",135000],
+["アルマンド ゴールド",150000]
+];
+
+let current=null;
+let data={};
+
+try{
+ data=JSON.parse(localStorage.getItem("jumanjiHandy"))||{};
+}catch(e){data={};}
+
+function emptyOrder(){
+ return {
+  guests:1,
+  bottles:Array(BOTTLES.length).fill(0),
+  tcOn:true,
+  tcPrice:3000,
+  scOn:true,
+  scRate:20,
+  setQty:0,
+  rounding:0
+ };
+}
+
+function yen(n){
+ return "¥"+Math.round(n).toLocaleString("ja-JP");
+}
+
+function renderTables(){
+ const el=document.getElementById("tables");
+ el.innerHTML="";
+ TABLES.forEach(t=>{
+  const d=data[t]||emptyOrder();
+  const total=calculate(d).grand;
+  const b=document.createElement("button");
+  b.className="table";
+  b.innerHTML=t+"<small>"+yen(total)+"</small>";
+  b.onclick=()=>openTable(t);
+  el.appendChild(b);
+ });
+}
+
+function openTable(t){
+ current=t;
+ if(!data[t]) data[t]=emptyOrder();
+ document.getElementById("home").classList.add("hidden");
+ document.getElementById("order").classList.remove("hidden");
+ document.getElementById("tableTitle").textContent=t;
+ load();
+}
+
+function goHome(){
+ save(false);
+ document.getElementById("order").classList.add("hidden");
+ document.getElementById("home").classList.remove("hidden");
+ renderTables();
+}
+
+function load(){
+ const d=data[current];
+ document.getElementById("guests").textContent=d.guests;
+ document.getElementById("tcOn").checked=d.tcOn;
+ document.getElementById("tcPrice").value=d.tcPrice;
+ document.getElementById("scOn").checked=d.scOn;
+ document.getElementById("scRate").value=d.scRate;
+ document.getElementById("setQty").textContent=d.setQty;
+ document.getElementById("rounding").value=d.rounding||0;
+
+ const el=document.getElementById("bottles");
+ el.innerHTML="";
+ BOTTLES.forEach((b,i)=>{
+  const r=document.createElement("div");
+  r.className="row";
+  r.innerHTML=`
+   <span>${b[0]}<br>
+   <span class="price">${yen(b[1])} + TAX10% = ${yen(b[1]*1.1)}</span></span>
+   <div class="qty">
+    <button onclick="changeBottle(${i},-1)">−</button>
+    <span id="q${i}">${d.bottles[i]}</span>
+    <button onclick="changeBottle(${i},1)">＋</button>
+   </div>`;
+  el.appendChild(r);
+ });
+ calc();
+}
+
+function changeGuests(n){
+ const d=data[current];
+ d.guests=Math.max(1,d.guests+n);
+ document.getElementById("guests").textContent=d.guests;
+ calc();
+}
+
+function changeBottle(i,n){
+ const d=data[current];
+ d.bottles[i]=Math.max(0,d.bottles[i]+n);
+ document.getElementById("q"+i).textContent=d.bottles[i];
+ calc();
+}
+
+function changeSet(n){
+ const d=data[current];
+ d.setQty=Math.max(0,d.setQty+n);
+ document.getElementById("setQty").textContent=d.setQty;
+ calc();
+}
+
+function readSettings(){
+ const d=data[current];
+ d.tcOn=document.getElementById("tcOn").checked;
+ d.tcPrice=Number(document.getElementById("tcPrice").value)||0;
+ d.scOn=document.getElementById("scOn").checked;
+ d.scRate=Number(document.getElementById("scRate").value)||0;
+ d.rounding=Number(document.getElementById("rounding").value)||0;
+}
+
+function calculate(d){
+ let base=0;
+ BOTTLES.forEach((b,i)=>base+=b[1]*(d.bottles[i]||0));
+
+ const bottleTax=base*.10;
+ const bottleWithTax=base+bottleTax;
+
+ const tc=d.tcOn ? d.tcPrice*d.guests : 0;
+
+ const scRate=d.scOn ? d.scRate/100 : 0;
+ const sc=(bottleWithTax+tc)*scRate;
+
+ const sets=d.setQty*50000*1.10*1.10;
+
+ let grand=bottleWithTax+tc+sc+sets;
+
+ if(d.rounding===100){
+  grand=Math.floor(grand/100)*100;
+ }
+
+ return {base,bottleTax,tc,sc,sets,grand};
+}
+
+function calc(){
+ if(!current)return;
+ readSettings();
+ const r=calculate(data[current]);
+
+ document.getElementById("bottleBase").textContent=yen(r.base);
+ document.getElementById("bottleTax").textContent=yen(r.bottleTax);
+ document.getElementById("tcTotal").textContent=yen(r.tc);
+ document.getElementById("scTotal").textContent=yen(r.sc);
+ document.getElementById("setTotal").textContent=yen(r.sets);
+ document.getElementById("grandTotal").textContent=yen(r.grand);
+}
+
+function save(alertUser=true){
+ if(current) readSettings();
+ localStorage.setItem("jumanjiHandy",JSON.stringify(data));
+ if(alertUser) alert("保存しました");
+}
+
+renderTables();
+</script>
+</body>
+</html>
