@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#08090d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>JUMANJI HANDY V2</title>
+<meta name="app-version" content="2026-07-30-final-1">
+<style>
+:root{--bg:#08090d;--card:#17181e;--card2:#24252e;--line:#383a45;--text:#f7f7f8;--muted:#a8a9b2;--gold:#f4c542;--danger:#ff6d6d;--green:#62dc91}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif}body{min-height:100vh;padding-bottom:116px}button,input,select,textarea{font:inherit;color:inherit}.app{max-width:760px;margin:auto;padding:calc(env(safe-area-inset-top) + 14px) 14px 30px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.top h1{margin:0;color:var(--gold);font-size:27px}.btn{border:0;border-radius:15px;padding:13px 15px;background:#272832;font-weight:850}.btn.gold{background:var(--gold);color:#151515}.btn.danger{background:#482326;color:#ffc2c2}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.tabs button{border:0;border-radius:14px;padding:12px 4px;background:#24252d;font-weight:850}.tabs button.active{background:var(--gold);color:#111}.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:18px;margin-bottom:14px}.card h2{margin:0 0 7px;font-size:24px}.sub{font-size:14px;color:var(--muted)}.hidden{display:none!important}.grid6{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.tableBtn{border:1px solid var(--line);background:#25262f;border-radius:16px;padding:16px 4px;font-size:18px;font-weight:900}.tableBtn.active{background:var(--gold);color:#111}.field{width:100%;border:1px solid #4a4c58;background:#2a2b34;border-radius:16px;padding:14px;outline:none}.field:focus{border-color:var(--gold)}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stack{display:grid;gap:10px}.sectionRow{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:17px 0;border-top:1px solid #2d2f38}.sectionRow:first-of-type{border-top:0}.sectionRow strong{font-size:19px}.qty{display:flex;align-items:center;gap:12px}.qty button{width:60px;height:60px;border:0;border-radius:17px;background:#2b2c35;font-size:32px;font-weight:900}.qty b{min-width:30px;text-align:center;font-size:25px}.switch{appearance:none;width:62px;height:36px;border-radius:99px;background:#434550;border:2px solid #595b67;position:relative;transition:.2s}.switch:after{content:"";position:absolute;width:28px;height:28px;top:2px;left:3px;border-radius:50%;background:#eee;transition:.2s}.switch:checked{background:var(--gold);border-color:var(--gold)}.switch:checked:after{left:27px}.selectSmall{min-width:145px;border:1px solid #4b4d59;background:#2a2b34;border-radius:15px;padding:11px 14px;font-size:18px}.timeActions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.timeActions button{border:0;border-radius:16px;padding:17px 8px;background:#2a2b34;font-weight:900;font-size:18px}.item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:17px 0;border-top:1px solid #2d2f38}.item:first-child{border-top:0}.name{font-size:18px;font-weight:900;line-height:1.35}.price{margin-top:5px;color:var(--muted)}.summary{display:grid}.sum{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-top:1px solid #30323b}.sum:first-child{border-top:0}.sum b{font-size:19px}.sum.em b,.sum.em span{color:var(--gold)}.grand{display:flex;justify-content:space-between;align-items:end;border-top:1px solid #735f22;padding-top:16px;margin-top:4px}.grand b{font-size:33px;color:var(--gold)}.editBtn{border:1px solid #6b5922;background:#2b281d;color:#ffd96b;border-radius:11px;padding:8px 12px;font-weight:850}.summaryTitle{display:flex;justify-content:space-between;align-items:center}.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.actions button{border:0;border-radius:13px;padding:13px 5px;background:#2a2b34;font-weight:850}.share{background:#19402a!important;color:#97f0b6}.paid{background:#4b3d16!important;color:#ffe38a}.roundGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.roundBtn{border:1px solid #464851;border-radius:14px;padding:12px 5px;background:#292a33}.roundBtn.active{border-color:var(--gold);color:#ffde76;background:#312a16}.tableList{display:grid;gap:10px}.tableCard{background:#1c1d24;border:1px solid var(--line);border-radius:18px;padding:15px}.tableTop{display:flex;justify-content:space-between}.badge{font-size:12px;font-weight:900;padding:5px 9px;border-radius:99px;background:#453918;color:#ffe185}.badge.done{background:#173b26;color:#8cefb0}.historyItem{padding:14px 0;border-top:1px solid #30323b;display:grid;grid-template-columns:1fr auto;gap:10px}.historyItem:first-child{border-top:0}.historyAmt{font-size:20px;font-weight:900}.footer{position:fixed;left:0;right:0;bottom:0;background:#0b0c10ee;border-top:1px solid #5c4c1e;padding:10px 16px calc(10px + env(safe-area-inset-bottom));backdrop-filter:blur(14px);z-index:10}.footerIn{max-width:760px;margin:auto;display:flex;justify-content:space-between;align-items:center}.footerTotal{font-size:28px;font-weight:950}.modal{position:fixed;inset:0;background:#000b;display:flex;align-items:flex-end;z-index:20}.sheet{width:100%;max-width:760px;max-height:88vh;overflow:auto;margin:auto;background:#111219;border:1px solid var(--line);border-radius:25px 25px 0 0;padding:18px 16px calc(22px + env(safe-area-inset-bottom))}.sheetHead{display:flex;justify-content:space-between;align-items:center;position:sticky;top:-18px;background:#111219;padding:18px 0 12px;z-index:2}.close{border:0;background:#2a2b34;border-radius:12px;padding:10px 13px;font-weight:900}.miniActions{display:flex;gap:7px}.miniActions button{border:0;border-radius:10px;padding:8px 10px;background:#2b2c35}.totalBar{position:sticky;bottom:0;background:#111219;border-top:1px solid #4a4c58;margin-top:12px;padding-top:12px}.empty{color:var(--muted);text-align:center;padding:18px}.note{font-size:12px;color:var(--muted);margin-top:8px}@media(max-width:460px){.row{grid-template-columns:1fr}.item{grid-template-columns:1fr}.qty{justify-content:flex-end}.actions{grid-template-columns:1fr 1fr}.top h1{font-size:23px}.tabs{grid-template-columns:repeat(3,1fr)}.tabs button{font-size:13px}.roundGrid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top"><h1>🍾 JUMANJI HANDY V2</h1><button id="topShare" class="btn">共有</button></div>
+  <div class="tabs"><button id="tabTables" class="active">卓一覧</button><button id="tabBill">伝票</button><button id="tabHistory">履歴</button></div>
+
+  <section id="tablesView"><div class="card"><h2>卓管理</h2><div class="sub">今使っている index.html には影響しません</div><div id="tableList" class="tableList" style="margin-top:15px"></div></div></section>
+
+  <section id="billView" class="hidden">
+    <div class="card"><h2>卓選択</h2><div id="tableButtons" class="grid6"></div></div>
+
+    <div class="card">
+      <h2>基本情報</h2>
+      <div class="stack">
+        <input id="customerName" class="field" placeholder="お客様名・卓メモ">
+        <div class="sectionRow"><div><strong>人数</strong><div class="sub">TC計算に使用</div></div><div class="qty"><button data-people="-1">−</button><b id="people">1</b><button data-people="1">＋</button></div></div>
+        <div class="sectionRow"><div><strong>TCを取る</strong><div class="sub">ON / OFF</div></div><input id="tcEnabled" type="checkbox" class="switch"></div>
+        <div class="sectionRow"><div><strong>TC金額（1名）</strong><div class="sub">自由入力</div></div><input id="tcPrice" class="selectSmall" inputmode="numeric" value="3000"></div>
+        <div class="sectionRow"><div><strong>TC合計</strong><div class="sub">TC金額 × 人数</div></div><b id="tcTotal" style="font-size:22px;color:var(--gold)">¥0</b></div>
+        <div class="row"><div><div class="sub">開始時間</div><input id="startTime" type="time" class="field"></div><div><div class="sub">終了時間</div><input id="endTime" type="time" class="field"></div></div>
+        <div class="timeActions"><button id="add30">＋30分 延長</button><button id="add60">＋60分 延長</button></div>
+        <div class="sub">延長合計：<b id="extensionMinutes" style="color:var(--gold)">0分</b></div>
+      </div>
+    </div>
+
+    <div class="card">
+      
+      <div id="summary" class="summary" style="margin-top:10px"></div>
+      <h2 style="margin-top:20px;font-size:20px">端数処理</h2>
+      <div id="roundGrid" class="roundGrid"></div>
+      <div class="actions"><button id="shareLine" class="share">LINE共有</button><button id="markPaid" class="paid">会計済み</button><button id="reset" class="btn danger">リセット</button></div>
+    </div>
+
+    <div class="card"><h2>メモ・支払方法</h2><textarea id="memo" class="field" rows="4" placeholder="メモ"></textarea><select id="payment" class="field" style="margin-top:10px"><option>未選択</option><option>現金</option><option>カード</option><option>現金＋カード</option><option>その他</option></select></div>
+  </section>
+
+  <section id="historyView" class="hidden"><div class="card"><div class="summaryTitle"><div><h2>会計済み履歴</h2><div class="sub">このiPhone内に保存</div></div><button id="clearHistory" class="btn danger">全削除</button></div><div id="historyList" style="margin-top:12px"></div></div></section>
+</div>
+
+<div class="footer"><div class="footerIn"><div><div class="sub">現在の卓</div><b id="footerTable">V1</b></div><div class="footerTotal" id="footerTotal">¥0</div></div></div>
+<div id="modalRoot"></div>
+<script>
+(()=>{
+'use strict';
+const TABLES=['V1','V2','V3','SV1','SV2','SV3'];
+const BOTTLES=[
+ {name:'マム グランコルドン',base:22000},{name:'マム グランコルドン ロゼ',base:25000},{name:'マム アイス エクストラ',base:26000},{name:'ペリエ ジュエ グラン ブリュット',base:24000},{name:'ペリエ ジュエ ベル エポック',base:75000},{name:'ペリエ ジュエ ベル エポック ロゼ',base:135000},{name:'アルマンド ブリニャック ゴールド',base:150000}
+];
+const SETS=['Set A','Set B','Set C','Set D','Set E'];
+const APP_VERSION='2026-07-30-final-1';
+const KEY='jumanji_handy_v2_20260730';
+const HISTORY_KEY='jumanji_handy_v2_history_20260730';
+const $=id=>document.getElementById(id);
+const yen=n=>'¥'+Math.round(Number(n)||0).toLocaleString('ja-JP');
+const num=v=>Math.max(0,parseInt(String(v??'').replace(/[^0-9]/g,''),10)||0);
+const nowTime=()=>new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',hour12:false});
+const blank=table=>({table,customerName:'',people:1,startTime:'',endTime:'',extensionMinutes:0,bottleQty:Array(BOTTLES.length).fill(0),drinks:[],setQty:Array(SETS.length).fill(0),tcEnabled:false,tcPrice:3000,scEnabled:true,scRate:20,taxEnabled:false,taxRate:0,memo:'',payment:'未選択',rounding:0,paid:false});
+let data={selected:'V1',tables:Object.fromEntries(TABLES.map(t=>[t,blank(t)]))};
+let history=[];
+try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved?.tables){data=saved;TABLES.forEach(t=>{data.tables[t]={...blank(t),...data.tables[t]};});}}catch(e){}
+try{history=JSON.parse(localStorage.getItem(HISTORY_KEY))||[]}catch(e){history=[]}
+const cur=()=>data.tables[data.selected];
+function persist(){localStorage.setItem(KEY,JSON.stringify(data));}
+function persistHistory(){localStorage.setItem(HISTORY_KEY,JSON.stringify(history));}
+function addMinutes(time,mins){const source=time||nowTime();const [h,m]=source.split(':').map(Number);const total=(h*60+m+mins+1440)%1440;return String(Math.floor(total/60)).padStart(2,'0')+':'+String(total%60).padStart(2,'0');}
+function calc(t){
+ const bottle=t.bottleQty.reduce((s,q,i)=>s+Math.round(BOTTLES[i].base*1.1)*q,0);
+ const drinks=t.drinks.reduce((s,x)=>s+x.price*x.qty,0);
+ const set=t.setQty.reduce((s,q)=>s+55000*q,0);
+ const tc=t.tcEnabled?t.tcPrice*t.people:0;
+ const subtotal=bottle+drinks+set+tc;
+ const sc=t.scEnabled?Math.floor(subtotal*t.scRate/100):0;
+ const tax=0;
+ const rawTotal=subtotal+sc;
+ const total=t.rounding?Math.floor(rawTotal/t.rounding)*t.rounding:rawTotal;
+ return{bottle,drinks,set,tc,subtotal,sc,tax,rawTotal,total};
+}
+function saveAndRender(){persist();renderAll();}
+function tableDetailCount(t){return t.bottleQty.reduce((a,b)=>a+b,0)+t.setQty.reduce((a,b)=>a+b,0)+t.drinks.reduce((a,b)=>a+b.qty,0);}
+function renderTableButtons(){$('tableButtons').innerHTML=TABLES.map(t=>`<button class="tableBtn ${t===data.selected?'active':''}" data-table="${t}">${t}</button>`).join('');document.querySelectorAll('[data-table]').forEach(b=>b.onclick=()=>{data.selected=b.dataset.table;persist();loadCurrent();});}
+function renderTableList(){$('tableList').innerHTML=TABLES.map(name=>{const t=data.tables[name],c=calc(t);return `<div class="tableCard"><div class="tableTop"><b style="font-size:21px">${name}</b><span class="badge ${t.paid?'done':''}">${t.paid?'会計済み':'営業中'}</span></div><div class="sub" style="margin-top:6px">${escapeHtml(t.customerName||'名前未入力')}／${t.people}名／開始 ${t.startTime||'未設定'}</div><div class="sub">登録数 ${tableDetailCount(t)}／延長 ${t.extensionMinutes}分</div><div style="font-size:24px;color:var(--gold);font-weight:950;margin-top:8px">${yen(c.total)}</div><div class="actions"><button data-open="${name}">開く</button><button data-paid="${name}">${t.paid?'営業中に戻す':'会計済み'}</button><button data-reset-table="${name}" class="btn danger">リセット</button></div></div>`}).join('');
+ document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{data.selected=b.dataset.open;persist();showView('bill');loadCurrent();});
+ document.querySelectorAll('[data-paid]').forEach(b=>b.onclick=()=>togglePaid(b.dataset.paid));
+ document.querySelectorAll('[data-reset-table]').forEach(b=>b.onclick=()=>resetTable(b.dataset.resetTable));}
+function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function renderSummary(){const t=cur(),c=calc(t);const rows=[
+ ['1. ボトル',c.bottle,'bottles'],['2. その他ドリンク',c.drinks,'drinks'],['3. セット',c.set,'sets'],['4. TC（テーブルチャージ）',c.tc,'tc'],['5. 小計',c.subtotal,null],['6. SC（サービスチャージ） '+(t.scEnabled?t.scRate+'%':'OFF'),c.sc,'sc']
+ ];
+ $('summary').innerHTML=rows.map((r,i)=>`<div class="sum ${i===4?'em':''}"><span>${r[0]}</span><span style="display:flex;align-items:center;gap:8px"><b>${yen(r[1])}</b>${r[2]?`<button class="editBtn" data-edit="${r[2]}">編集</button>`:''}</span></div>`).join('')+`<div class="grand"><span>7. 合計</span><b>${yen(c.total)}</b></div>`;
+ document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openEditor(b.dataset.edit));
+ $('footerTable').textContent=data.selected;$('footerTotal').textContent=yen(c.total);$('tcTotal').textContent=yen(c.tc);$('markPaid').textContent=t.paid?'営業中に戻す':'会計済みにする';
+ const choices=[{v:0,label:'しない'},{v:10,label:'10円単位'},{v:100,label:'100円単位'},{v:1000,label:'1,000円単位'}];
+ $('roundGrid').innerHTML=choices.map(x=>`<button class="roundBtn ${t.rounding===x.v?'active':''}" data-round="${x.v}">${x.label}<br><b>${yen(x.v?Math.floor(c.rawTotal/x.v)*x.v:c.rawTotal)}</b></button>`).join('');
+ document.querySelectorAll('[data-round]').forEach(b=>b.onclick=()=>{t.rounding=Number(b.dataset.round);saveAndRender();});}
+function renderHistory(){if(!history.length){$('historyList').innerHTML='<div class="empty">まだ履歴はありません</div>';return;}$('historyList').innerHTML=history.map((h,i)=>`<div class="historyItem"><div><b>${escapeHtml(h.date)}　${escapeHtml(h.table)}　${h.people}名</b><div class="sub">${escapeHtml(h.payment)}${h.customerName?'／'+escapeHtml(h.customerName):''}</div></div><div style="text-align:right"><div class="historyAmt">${yen(h.total)}</div><button class="miniActions" data-delete-history="${i}" style="border:0;background:#3a2426;color:#ffb4b4;border-radius:9px;padding:6px 9px;margin-top:5px">削除</button></div></div>`).join('');document.querySelectorAll('[data-delete-history]').forEach(b=>b.onclick=()=>{history.splice(Number(b.dataset.deleteHistory),1);persistHistory();renderHistory();});}
+function renderAll(){renderTableButtons();renderTableList();renderSummary();renderHistory();}
+function loadCurrent(){const t=cur();$('customerName').value=t.customerName;$('people').textContent=t.people;$('tcEnabled').checked=t.tcEnabled;$('tcPrice').value=t.tcPrice;$('startTime').value=t.startTime;$('endTime').value=t.endTime;$('extensionMinutes').textContent=t.extensionMinutes+'分';$('memo').value=t.memo;$('payment').value=t.payment;renderAll();}
+function bind(id,key,parser=v=>v){$(id).addEventListener('input',e=>{cur()[key]=parser(e.target.type==='checkbox'?e.target.checked:e.target.value);saveAndRender();});}
+bind('customerName','customerName');bind('tcEnabled','tcEnabled');bind('tcPrice','tcPrice',num);bind('startTime','startTime');bind('endTime','endTime');bind('memo','memo');bind('payment','payment');
+document.querySelectorAll('[data-people]').forEach(b=>b.onclick=()=>{cur().people=Math.max(1,cur().people+Number(b.dataset.people));saveAndRender();$('people').textContent=cur().people;});
+$('add30').onclick=()=>extend(30);$('add60').onclick=()=>extend(60);
+function extend(mins){const t=cur();if(!t.startTime)t.startTime=nowTime();t.endTime=addMinutes(t.endTime||t.startTime,mins);t.extensionMinutes+=mins;persist();loadCurrent();}
+function showView(view){['tables','bill','history'].forEach(v=>{$(v+'View').classList.toggle('hidden',v!==view);$('tab'+v[0].toUpperCase()+v.slice(1)).classList.toggle('active',v===view);});window.scrollTo({top:0,behavior:'smooth'});}
+$('tabTables').onclick=()=>showView('tables');$('tabBill').onclick=()=>showView('bill');$('tabHistory').onclick=()=>showView('history');
+function openEditor(type){const t=cur();let title='',body='';
+ if(type==='bottles'){title='ボトル編集';body=BOTTLES.map((b,i)=>`<div class="item"><div><div class="name">${escapeHtml(b.name)}</div><div class="price">${yen(b.base)} ＋ TAX10% ＝ ${yen(Math.round(b.base*1.1))}</div></div><div class="qty"><button data-modal-bottle="${i}:-1">−</button><b>${t.bottleQty[i]}</b><button data-modal-bottle="${i}:1">＋</button></div></div>`).join('');}
+ if(type==='sets'){title='セット編集';body=`<div class="sub" style="margin-bottom:8px">各 ${yen(55000)}（基本料金 ¥50,000＋TAX10%）</div>`+SETS.map((s,i)=>`<div class="item"><div><div class="name">${s}</div><div class="price">基本料金 ¥50,000</div></div><div class="qty"><button data-modal-set="${i}:-1">−</button><b>${t.setQty[i]}</b><button data-modal-set="${i}:1">＋</button></div></div>`).join('');}
+ if(type==='drinks'){title='その他ドリンク編集';body=`<div class="stack"><input id="mDrinkName" class="field" placeholder="商品名"><div class="row"><input id="mDrinkPrice" class="field" inputmode="numeric" placeholder="単価"><input id="mDrinkQty" class="field" inputmode="numeric" value="1"></div><button id="mAddDrink" class="btn gold">追加</button></div><div id="mDrinkRows" style="margin-top:12px"></div>`;}
+ if(type==='tc'){title='TC編集';body=`<div class="sectionRow"><div><strong>TCを取る</strong><div class="sub">ON / OFF</div></div><input id="mTcEnabled" type="checkbox" class="switch" ${t.tcEnabled?'checked':''}></div><div class="sectionRow"><div><strong>TC金額（1名）</strong></div><input id="mTcPrice" class="selectSmall" inputmode="numeric" value="${t.tcPrice}"></div><div class="sectionRow"><div><strong>人数</strong></div><div class="qty"><button data-modal-people="-1">−</button><b id="mPeople">${t.people}</b><button data-modal-people="1">＋</button></div></div><div class="sectionRow"><strong>TC合計</strong><b id="mTcTotal" style="color:var(--gold);font-size:22px">${yen(calc(t).tc)}</b></div>`;}
+ if(type==='sc'){title='SC編集';body=`<div class="sectionRow"><div><strong>SCを取る</strong><div class="sub">小計の後に計算</div></div><input id="mScEnabled" type="checkbox" class="switch" ${t.scEnabled?'checked':''}></div><div class="sectionRow"><div><strong>SC率</strong></div><select id="mScRate" class="selectSmall"><option value="0">0%</option><option value="10">10%</option><option value="20">20%</option></select></div>`;}
+  $('modalRoot').innerHTML=`<div class="modal" id="modal"><div class="sheet"><div class="sheetHead"><h2 style="margin:0">${title}</h2><button id="closeModal" class="close">閉じる</button></div>${body}<div class="totalBar"><b id="modalTotal"></b></div></div></div>`;
+ $('closeModal').onclick=closeModal;$('modal').onclick=e=>{if(e.target.id==='modal')closeModal();};bindModal(type);updateModalTotal(type);}
+function closeModal(){$('modalRoot').innerHTML='';renderAll();loadCurrent();}
+function bindModal(type){const t=cur();
+ if(type==='bottles'){document.querySelectorAll('[data-modal-bottle]').forEach(b=>b.onclick=()=>{const[i,d]=b.dataset.modalBottle.split(':').map(Number);t.bottleQty[i]=Math.max(0,t.bottleQty[i]+d);persist();openEditor(type);});}
+ if(type==='sets'){document.querySelectorAll('[data-modal-set]').forEach(b=>b.onclick=()=>{const[i,d]=b.dataset.modalSet.split(':').map(Number);t.setQty[i]=Math.max(0,t.setQty[i]+d);persist();openEditor(type);});}
+ if(type==='drinks'){renderModalDrinks();$('mAddDrink').onclick=()=>{const name=$('mDrinkName').value.trim(),price=num($('mDrinkPrice').value),qty=Math.max(1,num($('mDrinkQty').value));if(!name||!price){alert('商品名と単価を入力してください');return;}t.drinks.push({name,price,qty});persist();openEditor(type);};}
+ if(type==='tc'){$('mTcEnabled').oninput=e=>{t.tcEnabled=e.target.checked;persist();updateModalTotal(type)};$('mTcPrice').oninput=e=>{t.tcPrice=num(e.target.value);persist();updateModalTotal(type)};document.querySelectorAll('[data-modal-people]').forEach(b=>b.onclick=()=>{t.people=Math.max(1,t.people+Number(b.dataset.modalPeople));persist();openEditor(type);});}
+ if(type==='sc'){$('mScRate').value=t.scRate;$('mScEnabled').oninput=e=>{t.scEnabled=e.target.checked;persist();updateModalTotal(type)};$('mScRate').oninput=e=>{t.scRate=Number(e.target.value);persist();updateModalTotal(type)};}
+ }
+function renderModalDrinks(){const t=cur(),el=$('mDrinkRows');if(!el)return;el.innerHTML=t.drinks.length?t.drinks.map((x,i)=>`<div class="item"><div><div class="name">${escapeHtml(x.name)}</div><div class="price">${yen(x.price)} × ${x.qty} ＝ ${yen(x.price*x.qty)}</div></div><div class="miniActions"><button data-drink-minus="${i}">−</button><button data-drink-plus="${i}">＋</button><button data-drink-delete="${i}" style="color:#ff9b9b">削除</button></div></div>`).join(''):'<div class="empty">まだ登録されていません</div>';document.querySelectorAll('[data-drink-minus]').forEach(b=>b.onclick=()=>{const x=t.drinks[Number(b.dataset.drinkMinus)];x.qty--;if(x.qty<=0)t.drinks.splice(Number(b.dataset.drinkMinus),1);persist();openEditor('drinks');});document.querySelectorAll('[data-drink-plus]').forEach(b=>b.onclick=()=>{t.drinks[Number(b.dataset.drinkPlus)].qty++;persist();openEditor('drinks');});document.querySelectorAll('[data-drink-delete]').forEach(b=>b.onclick=()=>{t.drinks.splice(Number(b.dataset.drinkDelete),1);persist();openEditor('drinks');});}
+function updateModalTotal(type){const c=calc(cur()),map={bottles:c.bottle,sets:c.set,drinks:c.drinks,tc:c.tc,sc:c.sc};if($('modalTotal'))$('modalTotal').textContent='合計：'+yen(map[type]||0);if($('mTcTotal'))$('mTcTotal').textContent=yen(c.tc);}
+function shareText(){const t=cur(),c=calc(t),lines=['🍾 JUMANJI HANDY',`卓：${t.table}`,`名前：${t.customerName||'未入力'}`,`人数：${t.people}名`,`開始：${t.startTime||'未設定'}`,`終了：${t.endTime||'未設定'}`,`延長：${t.extensionMinutes}分`,'',`1. ボトル：${yen(c.bottle)}`,`2. その他ドリンク：${yen(c.drinks)}`,`3. セット：${yen(c.set)}`,`4. TC：${yen(c.tc)}`,`5. 小計：${yen(c.subtotal)}`,`6. SC：${yen(c.sc)}`,'──────────',`7. 合計：${yen(c.total)}`,`支払方法：${t.payment}`];if(t.memo)lines.push('',`メモ：${t.memo}`);return lines.join('\n');}
+function share(){location.href='https://line.me/R/msg/text/?'+encodeURIComponent(shareText());}
+$('topShare').onclick=share;$('shareLine').onclick=share;
+function togglePaid(tableName){const t=data.tables[tableName];if(!t.paid){const c=calc(t);history.unshift({date:new Date().toLocaleString('ja-JP'),table:t.table,people:t.people,total:c.total,payment:t.payment,customerName:t.customerName});persistHistory();t.paid=true;}else t.paid=false;persist();renderAll();loadCurrent();}
+$('markPaid').onclick=()=>togglePaid(data.selected);
+function resetTable(name){if(!confirm(`${name}をリセットしますか？`))return;data.tables[name]=blank(name);persist();loadCurrent();}
+$('reset').onclick=()=>resetTable(data.selected);
+$('clearHistory').onclick=()=>{if(confirm('履歴をすべて削除しますか？')){history=[];persistHistory();renderHistory();}};
+if(!cur().startTime)cur().startTime=nowTime();persist();loadCurrent();showView('tables');
+})();
+</script>
+</body>
+</html>
